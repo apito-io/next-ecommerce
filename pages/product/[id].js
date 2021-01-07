@@ -57,7 +57,7 @@ export default function Home() {
         </div>
 
         <div className="product-img">
-          <Image src={data.productsById[0].img_url} width="320" height="230" />
+          <img src={data?.productsById[0]?.img_url || ''} width="320" height="230" />
         </div>
 
         <h1 className="product-name">{data.productsById[0].name}</h1>

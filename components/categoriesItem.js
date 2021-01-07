@@ -26,17 +26,17 @@ const iconSlugs = {
 };
 
 export default function CategoriesItem({ category }) {
-  const Icon = iconSlugs[category.md_icon];
+  const Icon = iconSlugs[category.md_icon || category?.data?.icon?.url];
 
   return (
     <li key={category.id}>
-      <Link href={`/category/${category.name}`}>
+      <Link href={`/category/${category.name || category?.data.name}`}>
         <a>
           <div className="content">
             <div className="icon">
-              <Icon color="#D8D8D8" size="22" />
+                {Icon ? <Icon color="#D8D8D8" size="22" /> : null}
             </div>
-            <p>{category.label}</p>
+            <p>{category.label || category?.data?.label}</p>
           </div>
           <div className="arrow-button">
             <MdKeyboardArrowRight color="#D8D8D8" size="26" />

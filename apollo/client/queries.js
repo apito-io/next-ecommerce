@@ -112,9 +112,13 @@ export const CATEGORIES = gql`
   query CategoriesQuery {
     categories {
       id
-      name
-      label
-      md_icon
+      data {
+        name
+        label
+        icon {
+          url
+        }
+      }
     }
   }
 `;
