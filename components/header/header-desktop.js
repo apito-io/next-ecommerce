@@ -27,7 +27,7 @@ export default function HeaderDesktop({ viewer }) {
             <a className="nav-buttons-items">
               <FaShoppingCart color="#808080" />
               <p>
-                <sup className="items-total">{cart.data.cart.cartCount}</sup>{' '}
+                <sup className="items-total">{cart?.data?.cart?.cartCount || 0}</sup>{' '}
                 Items
               </p>
             </a>

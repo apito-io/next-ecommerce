@@ -19,7 +19,7 @@ export default function ProductSection({ id, name, rating, img_url, price }) {
     <article>
       <div className="top-buttons">
         <button className="add-wishlist" onClick={() => toggleWishlist(id)}>
-          {wishlist.data.wishlist.products.includes(id) && (
+          {wishlist?.data?.wishlist?.products.includes(id) && (
             <FaHeart size={20} color="#D8D8D8" />
           )}
           {!wishlist.data.wishlist.products.includes(id) && (

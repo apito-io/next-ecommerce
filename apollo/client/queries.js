@@ -56,16 +56,34 @@ export const VIEWER = gql`
   }
 `;
 
+// export const PRODUCTS = gql`
+//   query ProductsQuery($field: String!, $order: String!, $category: String) {
+//     products(sort: { field: $field, order: $order }, category: $category) {
+//       id
+//       name
+//       description
+//       img_url
+//       price
+//       rating
+//     }
+//   }
+// `;
+
 export const PRODUCTS = gql`
-  query ProductsQuery($field: String!, $order: String!, $category: String) {
-    products(sort: { field: $field, order: $order }, category: $category) {
-      id
+  query ProductsQuery($sort: SORT_EMUN) {
+    products(sort: $sort) {
+    data {
       name
-      description
-      img_url
       price
       rating
+      image {
+        url
+      }
+      description {
+        text
+      }
     }
+  }
   }
 `;
 

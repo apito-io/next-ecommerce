@@ -1,29 +1,54 @@
 import { useMemo } from 'react';
 import { ApolloClient } from '@apollo/client';
+import { createHttpLink } from 'apollo-link-http';
+import { setContext } from 'apollo-link-context';
+import { InMemoryCache } from 'apollo-cache-inmemory';
 
 import { cache } from './cache';
 
 let apolloClient;
 
-function createIsomorphLink() {
-  if (typeof window === 'undefined') {
-    const { SchemaLink } = require('@apollo/client/link/schema');
-    const { schema } = require('../schema');
-    return new SchemaLink({ schema });
-  } else {
-    const { HttpLink } = require('@apollo/client/link/http');
-    return new HttpLink({
-      uri: '/api/graphql',
-      credentials: 'same-origin',
-    });
+// function createIsomorphLink() {
+//   if (typeof window === 'undefined') {
+//     const { SchemaLink } = require('@apollo/client/link/schema');
+//     const { schema } = require('../schema');
+//     return new SchemaLink({ schema });
+//   } else {
+//     const { HttpLink } = require('@apollo/client/link/http');
+//     const token = process.env.NEXT_PUBLIC_TOKEN_SECRET || null;
+//     // console.log('Log ~ file: index.js ~ line 16 ~ createIsomorphLink ~ process.env.NEXT_PUBLIC_TOKEN_SECRET', process.env.NEXT_PUBLIC_TOKEN_SECRET)
+//     return new HttpLink({
+//       uri: 'https://api.apito.io/secured/graphql',
+//       credentials: 'same-origin',
+//       headers: {
+//         authorization: token ? `Bearer ${token}` : null,
+//       }
+//     });
+//   }
+// }
+
+const httpLink = createHttpLink({
+  uri: 'https://api.apito.io/secured/graphql',
+  credentials: 'same-origin',
+});
+
+const authLink = setContext((_, { headers }) => {
+  // get the authentication token from local storage if it exists
+  const token = process.env.NEXT_PUBLIC_TOKEN_SECRET || null;
+  // return the headers to the context so httpLink can read them
+  return {
+    headers: {
+      ...headers,
+      authorization: token ? `Bearer ${token}` : "",
+    }
   }
-}
+});
 
 function createApolloClient() {
   return new ApolloClient({
     ssrMode: typeof window === 'undefined',
-    link: createIsomorphLink(),
-    cache: cache,
+    link: authLink.concat(httpLink),
+    cache: new InMemoryCache(),
   });
 }
 

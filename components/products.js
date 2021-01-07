@@ -19,8 +19,8 @@ export default function Products({ category }) {
   } else if (!category) {
     var { data, loading, error } = useQuery(PRODUCTS, {
       variables: {
-        field: sortQueryResult.data.sortProductSection[0],
-        order: sortQueryResult.data.sortProductSection[1],
+        field: sortQueryResult?.data?.sortProductSection[0],
+        order: sortQueryResult?.data?.sortProductSection[1],
       },
     });
   }

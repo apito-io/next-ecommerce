@@ -21,8 +21,8 @@ export default function HeaderBarProducts() {
         <a
           id="popular-products"
           className={
-            data.sortProductSection[0] === 'rating' &&
-            data.sortProductSection[1] === 'DESC'
+            data?.sortProductSection[0] === 'rating' &&
+            data?.sortProductSection[1] === 'DESC'
               ? 'active'
               : ''
           }
@@ -33,8 +33,8 @@ export default function HeaderBarProducts() {
         <a
           id="low-price"
           className={
-            data.sortProductSection[0] === 'price' &&
-            data.sortProductSection[1] === 'ASC'
+            data?.sortProductSection[0] === 'price' &&
+            data?.sortProductSection[1] === 'ASC'
               ? 'active'
               : ''
           }
@@ -45,8 +45,8 @@ export default function HeaderBarProducts() {
         <a
           id="high-price"
           className={
-            data.sortProductSection[0] === 'price' &&
-            data.sortProductSection[1] === 'DESC'
+            data?.sortProductSection[0] === 'price' &&
+            data?.sortProductSection[1] === 'DESC'
               ? 'active'
               : ''
           }
