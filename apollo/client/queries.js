@@ -72,16 +72,17 @@ export const VIEWER = gql`
 export const PRODUCTS = gql`
   query ProductsQuery($sort: SORT_EMUN) {
     products(sort: $sort) {
-    data {
-      name
-      price
-      rating
-      image {
-        url
-      }
+      id
+      data {
+        name
+        price
+        rating
+        image {
+          url
+        }
       description {
-        text
-      }
+          text
+        }
     }
   }
   }

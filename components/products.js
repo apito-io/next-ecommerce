@@ -67,10 +67,10 @@ export default function Products({ category }) {
         <ProductItem
           key={product.id}
           id={product.id}
-          name={product.name}
-          rating={product.rating}
-          img_url={product.img_url}
-          price={product.price}
+          name={product?.data?.name}
+          rating={product?.data?.rating}
+          img_url={product?.data?.image?.url}
+          price={product?.data?.price}
         />
       ))}
     </ProductsGrid>
