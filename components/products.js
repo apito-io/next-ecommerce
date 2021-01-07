@@ -11,18 +11,11 @@ export default function Products({ category }) {
   if (category) {
     var { data, loading, error } = useQuery(PRODUCTS, {
       variables: {
-        field: sortQueryResult.data.sortProductSection[0],
-        order: sortQueryResult.data.sortProductSection[1],
         category: category,
       },
     });
   } else if (!category) {
-    var { data, loading, error } = useQuery(PRODUCTS, {
-      variables: {
-        field: sortQueryResult?.data?.sortProductSection[0],
-        order: sortQueryResult?.data?.sortProductSection[1],
-      },
-    });
+    var { data, loading, error } = useQuery(PRODUCTS);
   }
 
   if (loading)
