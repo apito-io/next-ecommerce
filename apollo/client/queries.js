@@ -89,6 +89,28 @@ export const PRODUCTS = gql`
   }
 `;
 
+export const PRODUCTS_BY_CATEGORY = gql`
+  query ProductsQueryByCategory($category: String) {
+    categories(where: {name: {eq: $category}}) {
+      products {
+        id
+        data {
+          name
+          price
+          rating
+          image {
+            url
+          }
+        description {
+            text
+          }
+        
+        }
+     }
+    }
+  }
+`;
+
 export const PRODUCTS_BY_IDS = gql`
   query productsByIds($id: [ID]!) {
     productsById(id: $id) {

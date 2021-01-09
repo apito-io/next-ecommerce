@@ -1,7 +1,7 @@
 import { useQuery } from '@apollo/client';
 import ProductItem from './productItem';
 import EmptySection from './emptySection';
-import { PRODUCTS, SORT_PRODUCT_SECTION } from '../apollo/client/queries';
+import { PRODUCTS, SORT_PRODUCT_SECTION, PRODUCTS_BY_CATEGORY} from '../apollo/client/queries';
 import ProductsGrid from './productsGrid';
 import offlineProducts from '../db/offlineData/products';
 
@@ -9,7 +9,7 @@ export default function Products({ category }) {
   const sortQueryResult = useQuery(SORT_PRODUCT_SECTION);
 
   if (category) {
-    var { data, loading, error } = useQuery(PRODUCTS, {
+    var { data : dataByCategory , loading, error } = useQuery(PRODUCTS_BY_CATEGORY, {
       variables: {
         category: category,
       },
@@ -34,7 +34,9 @@ export default function Products({ category }) {
     );
 
   // Offline data
-  if (!data?.products || error)
+  console.log(data?.products, dataByCategory?.categories[0]?.products);
+  
+  if ((!data?.products && !dataByCategory?.categories[0]?.products) || error)
     return (
       <ProductsGrid>
         {offlineProducts.map((product) => (
@@ -56,7 +58,7 @@ export default function Products({ category }) {
 
   return (
     <ProductsGrid>
-      {data.products.map((product) => (
+      {data?.products && Array.isArray(data?.products) ? data?.products.map((product) => (
         <ProductItem
           key={product.id}
           id={product.id}
@@ -65,7 +67,19 @@ export default function Products({ category }) {
           img_url={product?.data?.image?.url}
           price={product?.data?.price}
         />
-      ))}
+      )) : 
+      
+      dataByCategory?.categories[0]?.products && Array.isArray(dataByCategory?.categories[0]?.products) ? dataByCategory?.categories[0]?.products.map((product) => (
+        <ProductItem
+          key={product.id}
+          id={product.id}
+          name={product?.data?.name}
+          rating={product?.data?.rating}
+          img_url={product?.data?.image?.url}
+          price={product?.data?.price}
+        />
+      ))
+      : null}
     </ProductsGrid>
   );
 }
