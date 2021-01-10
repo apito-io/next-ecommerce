@@ -111,6 +111,25 @@ export const PRODUCTS_BY_CATEGORY = gql`
   }
 `;
 
+export const PRODUCTS_BY_ID = gql`
+  query productsById($id: String!) {
+    product(_id: $id) {
+      id
+        data {
+          name
+          price
+          rating
+          image {
+            url
+          }
+        description {
+            text
+          }
+        
+        }
+    }
+  }
+`;
 export const PRODUCTS_BY_IDS = gql`
   query productsByIds($id: [ID]!) {
     productsById(id: $id) {

@@ -7,8 +7,9 @@ import {
   FaHeart,
 } from 'react-icons/fa';
 import Image from 'next/image';
+import ReactMarkdown from 'react-markdown'
 import StarRatings from 'react-star-ratings';
-import { PRODUCTS_BY_IDS, CART, WISHLIST } from '../../apollo/client/queries';
+import { PRODUCTS_BY_ID, CART, WISHLIST } from '../../apollo/client/queries';
 import Page from '../../components/page';
 import ErrorAlert from '../../components/alerts/error';
 import { toggleCart, toggleWishlist } from '../../utils/toggleProductStates';
@@ -19,13 +20,13 @@ export default function Home() {
   const cart = useQuery(CART);
   const wishlist = useQuery(WISHLIST);
 
-  const { data, loading, error } = useQuery(PRODUCTS_BY_IDS, {
+  const { data, loading, error } = useQuery(PRODUCTS_BY_ID, {
     variables: {
       id,
     },
   });
 
-  if ((error || !data?.productsById.length) && !loading) {
+  if ((error || !data?.product) && !loading) {
     return (
       <Page title="Quantum E-commerce - Products">
         <ErrorAlert message="This product is not found!"></ErrorAlert>
@@ -45,30 +46,32 @@ export default function Home() {
         <div className="top-buttons">
           <button
             className="add-wishlist"
-            onClick={() => toggleWishlist(data.productsById[0].id)}
+            onClick={() => toggleWishlist(data?.product.id)}
           >
-            {wishlist.data.wishlist.products.includes(
-              data.productsById[0].id
+            {wishlist?.data?.wishlist?.products.includes(
+              data.product.id
             ) && <FaHeart size={20} color="#D8D8D8" />}
-            {!wishlist.data.wishlist.products.includes(
-              data.productsById[0].id
+            {!wishlist?.data?.wishlist?.products.includes(
+              data.product.id
             ) && <FaRegHeart size={20} color="#D8D8D8" />}
           </button>
         </div>
 
         <div className="product-img">
-          <img src={data?.productsById[0]?.img_url || ''} width="320" height="230" />
+          <img src={data?.product?.data?.image?.url || ''} width="320" height="230" />
         </div>
 
-        <h1 className="product-name">{data.productsById[0].name}</h1>
+        <h1 className="product-name">{data?.product?.data.name}</h1>
 
         <h3 className="product-description">
-          {data.productsById[0].description}
+          <ReactMarkdown>
+              {data?.product?.data?.description?.markdown}
+          </ReactMarkdown>
         </h3>
 
         <div className="rating">
           <StarRatings
-            rating={parseFloat(data.productsById[0].rating)}
+            rating={parseFloat(data?.product?.data?.rating)}
             starRatedColor="#F9AD3D"
             numberOfStars={5}
             name="rating"
@@ -78,15 +81,15 @@ export default function Home() {
         </div>
 
         <div className="price">
-          <p className="price-value">${data.productsById[0].price}</p>
+          <p className="price-value">${data?.product?.data?.price}</p>
           <button
             className="add-cart"
-            onClick={() => toggleCart(data.productsById[0].id)}
+            onClick={() => toggleCart(data?.product?.id)}
           >
-            {cart.data.cart.products.includes(data.productsById[0].id) && (
+            {cart?.data?.cart?.products.includes(data?.product?.id) && (
               <FaCartArrowDown size={24} color="#D8D8D8" />
             )}
-            {!cart.data.cart.products.includes(data.productsById[0].id) && (
+            {!cart?.data?.cart?.products.includes(data?.product?.id) && (
               <FaCartPlus size={24} color="#D8D8D8" />
             )}
           </button>

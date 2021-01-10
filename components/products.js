@@ -34,8 +34,7 @@ export default function Products({ category }) {
     );
 
   // Offline data
-  console.log(data?.products, dataByCategory?.categories[0]?.products);
-  
+
   if ((!data?.products && !dataByCategory?.categories[0]?.products) || error)
     return (
       <ProductsGrid>
