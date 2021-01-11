@@ -6,7 +6,8 @@ import ProductsGrid from './productsGrid';
 import offlineProducts from '../db/offlineData/products';
 
 export default function Products({ category }) {
-  const sortQueryResult = useQuery(SORT_PRODUCT_SECTION);
+  const {data: sortQueryResult} = useQuery(SORT_PRODUCT_SECTION);
+  console.log('Log ~ file: products.js ~ line 10 ~ Products ~ sortQueryResult', sortQueryResult)
 
   if (category) {
     var { data : dataByCategory , loading, error } = useQuery(PRODUCTS_BY_CATEGORY, {
@@ -15,7 +16,14 @@ export default function Products({ category }) {
       },
     });
   } else if (!category) {
-    var { data, loading, error } = useQuery(PRODUCTS);
+    var { data, loading, error } = useQuery(PRODUCTS,{
+      variables:{
+        sort: {
+          price: sortQueryResult?.sortProductSection[0]==='price'? sortQueryResult?.sortProductSection[1] : undefined, 
+          rating: sortQueryResult?.sortProductSection[0]==='rating'? sortQueryResult?.sortProductSection[1] : undefined, 
+        }
+      }
+    });
   }
 
   if (loading)

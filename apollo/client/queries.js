@@ -70,7 +70,7 @@ export const VIEWER = gql`
 // `;
 
 export const PRODUCTS = gql`
-  query ProductsQuery($sort: SORT_EMUN, $category: String) {
+  query ProductsQuery($sort: Products_input_sort_payload) {
     products(sort: $sort) {
       id
       data {
@@ -80,7 +80,6 @@ export const PRODUCTS = gql`
         image {
           url
         }
-      categories(where: {name: {eq: $category }})
       description {
           text
         }
