@@ -55,6 +55,13 @@ export const VIEWER = gql`
     }
   }
 `;
+export const VIEWERIs = gql`
+  query isLoggedIn {
+    isLoggedIn @client {
+      isLoggedIn
+    }
+  }
+`;
 
 // export const PRODUCTS = gql`
 //   query ProductsQuery($field: String!, $order: String!, $category: String) {
@@ -163,4 +170,15 @@ export const CATEGORIES = gql`
       }
     }
   }
+`;
+
+export const  USER= gql`
+  query ViewerQuery($id:String) {
+  user(_id: $id) {
+    id
+    data {
+      email
+    }
+ }
+}
 `;

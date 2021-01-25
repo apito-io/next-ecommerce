@@ -8,6 +8,18 @@ export default function Header() {
   const { data, loading, error } = useQuery(VIEWER);
   const viewer = data?.viewer;
 
+
+  // useEffect(()=>{
+  //   if(getUserToken()){
+  //     user({
+  //       variables:{
+  //                  id:getUserToken()
+  //       }
+  //     })
+  //   }
+  //
+  // },[])
+
   return (
     <header>
       <nav id="mobile">

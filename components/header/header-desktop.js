@@ -1,16 +1,11 @@
-import { useQuery } from '@apollo/client';
+import {useQuery} from '@apollo/client';
 import Link from 'next/link';
-import {
-  FaShoppingCart,
-  FaRegHeart,
-  FaUser,
-  FaSignOutAlt,
-  FaBars,
-} from 'react-icons/fa';
-import { CART_COUNT } from '../../apollo/client/queries';
+import {FaRegHeart, FaShoppingCart, FaSignOutAlt, FaUser,} from 'react-icons/fa';
+import {CART_COUNT} from '../../apollo/client/queries';
 
 import Logo from '../logo';
 import SearchBox from '../search-box';
+import {isLogin} from "../../utils/authContainer";
 
 export default function HeaderDesktop({ viewer }) {
   const cart = useQuery(CART_COUNT);
@@ -38,7 +33,7 @@ export default function HeaderDesktop({ viewer }) {
               <p>Wishlist</p>
             </a>
           </Link>
-          {!viewer && (
+          {isLogin()===false && (
             <Link href="/user/login">
               <a className="nav-buttons-signin">
                 <FaUser color="#808080" />
@@ -46,12 +41,12 @@ export default function HeaderDesktop({ viewer }) {
               </a>
             </Link>
           )}
-          {viewer && (
+          {isLogin()===true && (
             <>
               <Link href="/profile">
                 <a className="nav-buttons-profile">
                   <FaUser color="#808080" />
-                  <p>{viewer.name}</p>
+                  <p>User</p>
                 </a>
               </Link>
               <Link href="/user/signout">
@@ -63,51 +58,51 @@ export default function HeaderDesktop({ viewer }) {
           )}
         </div>
       </div>
-      <div className="header header-bottom">
-        <div className="all-categories-box">
-          <FaBars color="#d8d8d8" />
-          <select name="categories" id="categories">
-            <option value="All Categories" selected>
-              All Categories
-            </option>
-            <option value="#">Desktop</option>
-            <option value="#">Smartphone</option>
-            <option value="#">Watches</option>
-            <option value="#">Games</option>
-            <option value="#">Laptop</option>
-            <option value="#">Keyboards</option>
-            <option value="#">TV & Video</option>
-            <option value="#">Accessories</option>
-          </select>
-        </div>
+      {/*<div className="header header-bottom">*/}
+        {/*<div className="all-categories-box">*/}
+          {/*<FaBars color="#d8d8d8" />*/}
+          {/*<select name="categories" id="categories">*/}
+            {/*<option value="All Categories" selected>*/}
+              {/*All Categories*/}
+            {/*</option>*/}
+            {/*<option value="#">Desktop</option>*/}
+            {/*<option value="#">Smartphone</option>*/}
+            {/*<option value="#">Watches</option>*/}
+            {/*<option value="#">Games</option>*/}
+            {/*<option value="#">Laptop</option>*/}
+            {/*<option value="#">Keyboards</option>*/}
+            {/*<option value="#">TV & Video</option>*/}
+            {/*<option value="#">Accessories</option>*/}
+          {/*</select>*/}
+        {/*</div>*/}
 
-        <nav className="main-nav">
-          <Link href="#">
-            <a>Super Deals</a>
-          </Link>
-          <Link href="#">
-            <a>Featured Brands</a>
-          </Link>
-          <Link href="#">
-            <a>Collections</a>
-          </Link>
-          <Link href="#">
-            <a>Bestselling</a>
-          </Link>
-        </nav>
+        {/*<nav className="main-nav">*/}
+          {/*<Link href="#">*/}
+            {/*<a>Super Deals</a>*/}
+          {/*</Link>*/}
+          {/*<Link href="#">*/}
+            {/*<a>Featured Brands</a>*/}
+          {/*</Link>*/}
+          {/*<Link href="#">*/}
+            {/*<a>Collections</a>*/}
+          {/*</Link>*/}
+          {/*<Link href="#">*/}
+            {/*<a>Bestselling</a>*/}
+          {/*</Link>*/}
+        {/*</nav>*/}
 
-        <div className="settings">
-          <div className="menu-dropdown">
-            <p>Help</p>
-          </div>
-          <div className="menu-dropdown">
-            <p>USD</p>
-          </div>
-          <div className="menu-dropdown">
-            <p>Language</p>
-          </div>
-        </div>
-      </div>
+        {/*<div className="settings">*/}
+          {/*<div className="menu-dropdown">*/}
+            {/*<p>Help</p>*/}
+          {/*</div>*/}
+          {/*<div className="menu-dropdown">*/}
+            {/*<p>USD</p>*/}
+          {/*</div>*/}
+          {/*<div className="menu-dropdown">*/}
+            {/*<p>Language</p>*/}
+          {/*</div>*/}
+        {/*</div>*/}
+      {/*</div>*/}
       <style jsx>{`
         /* Header Top */
         .header {

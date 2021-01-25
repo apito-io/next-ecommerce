@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useMutation, useApolloClient } from '@apollo/client';
 import { gql } from '@apollo/client'
+import {logout} from "../../utils/authContainer";
 
 const SignOutMutation = gql`
   mutation SignOutMutation {
@@ -12,15 +13,12 @@ const SignOutMutation = gql`
 function SignOut() {
   const client = useApolloClient();
   const router = useRouter();
-  const [signOut] = useMutation(SignOutMutation);
+  // const [signOut] = useMutation(SignOutMutation);
 
   useEffect(() => {
-    signOut().then(() => {
-      client.resetStore().then(() => {
+        logout()
         router.push('/user/login');
-      });
-    });
-  }, [signOut, router, client]);
+  }, [ router, client]);
 
   return <p>Signing out...</p>;
 }

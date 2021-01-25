@@ -1,9 +1,14 @@
-import { InMemoryCache } from '@apollo/client';
+import {makeVar, InMemoryCache } from '@apollo/client';
 
 export const cache = new InMemoryCache({
   typePolicies: {
     Query: {
       fields: {
+        // isLoggedIn: {
+        //   read() {
+        //     return isLoggedInVar();
+        //   }
+        // },
         isDrawerOpen: {
           read() {
             return isDrawerOpenVar();
@@ -42,3 +47,5 @@ export const sortProductSectionVar = cache.makeVar(['rating', 'DESC']);
 export const cartProductsVar = cache.makeVar([]);
 
 export const wishlistProductsVar = cache.makeVar([]);
+
+// export const isLoggedInVar = cache.makeVar(!!localStorage.getItem("token"));

@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import PageContainer from '../../components/page-container';
 import Link from 'next/link';
 import { SIGN_IN } from '../../apollo/client/mutations';
-import { useMutation, useApolloClient } from '@apollo/client';
+import {useMutation, useApolloClient, useLazyQuery} from '@apollo/client';
 import { getErrorMessage } from '../../lib/form';
 
 import AlertError from '../../components/alerts/error';
@@ -11,10 +11,12 @@ import Button from '../../components/form/button';
 import Input from '../../components/form/input';
 import InputContainer from '../../components/form/InputContainer';
 import FormContainer from '../../components/form/formContainer';
+import {loginSuccess} from "../../utils/authContainer";
+import {isLoggedInVar} from "../../apollo/client/cache";
 
 export default function Login() {
   const client = useApolloClient();
-  const [signIn] = useMutation(SIGN_IN);
+  const [signIn,{data}] = useLazyQuery(SIGN_IN);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [msgError, setMsgError] = useState('');
@@ -26,18 +28,23 @@ export default function Login() {
 
     try {
       await client.resetStore();
-      const { data } = await signIn({
+      let result = await signIn({
         variables: {
           email: email.trim(),
-          password: password.trim(),
+          secret: password.trim(),
         },
       });
-      if (data.signIn.user) {
-        await router.push('/');
-      }
+      // console.log("..data",data);
+      //
+      // else alert("Wrong information!");
     } catch (error) {
       setMsgError(getErrorMessage(error));
     }
+  }
+  if (data && data.userLogin && data.userLogin.id_token) {
+    loginSuccess(data.userLogin.id_token)
+    // isLoggedInVar(true);
+       router.push('/');
   }
 
   return (

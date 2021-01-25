@@ -11,7 +11,8 @@ import StarRatings from 'react-star-ratings';
 import { toggleCart, toggleWishlist } from '../utils/toggleProductStates';
 import { CART, WISHLIST } from '../apollo/client/queries';
 
-export default function ProductSection({ id, name, rating, img_url, price }) {
+export default function ProductSection({ id, name, rating, img_url, price,product }) {
+
   const cart = useQuery(CART);
   const wishlist = useQuery(WISHLIST);
 
@@ -51,7 +52,7 @@ export default function ProductSection({ id, name, rating, img_url, price }) {
 
       <div className="price">
         <p className="price-value">${price}</p>
-        <button className="add-cart" onClick={() => toggleCart(id)}>
+        <button className="add-cart" onClick={() => toggleCart(id,product)}>
           {cart?.data?.cart?.products.includes(id) && (
             <FaCartArrowDown size={18} color="#D8D8D8" />
           )}

@@ -66,6 +66,7 @@ export const typeDefs = gql`
   type Query {
     user(id: ID!): User!
     users: [User]!
+    isLoggedIn: Boolean!
     viewer: User
     products(sort: [Sort!], category: String): [Product]!
     productsById(id: [ID]): [Product!]

@@ -1,4 +1,4 @@
-import { useQuery } from '@apollo/client';
+import {useLazyQuery, useQuery} from '@apollo/client';
 import Page from '../components/page';
 import EmptySection from '../components/emptySection';
 import Title from '../components/title';
@@ -6,42 +6,52 @@ import FinishOrderCart from '../components/finishOrderCart';
 import ProductItem from '../components/productItem';
 import { CART, PRODUCTS_BY_IDS } from '../apollo/client/queries';
 import ProductsGrid from '../components/productsGrid';
+import {useEffect} from 'react';
 
 export default function Profile() {
+
   const cart = useQuery(CART);
 
-  const { data, loading, error } = useQuery(PRODUCTS_BY_IDS, {
-    variables: {
-      id: cart.data.cart.products,
-    },
-  });
+  // const [ProductApi,{ data, loading, error }] = useLazyQuery(PRODUCTS_BY_IDS);
+  //
+  // useEffect(()=>{
+  //   if(cart && cart.data && cart.data.cart.products){
+  //     ProductApi({
+  //       variables: {
+  //         id: cart && cart.data && cart.data.cart.products,
+  //       },
+  //     })
+  //   }
+  // },[cart])
 
-  if (loading) return <></>;
-
-  if (error)
-    return (
-      <Page>
-        <Title title="Cart" />
-        <EmptySection name="cart" />
-      </Page>
-    );
+  // console.log(data,'>>>>.');
+  // if (loading) return <></>;
+  //
+  // if (error)
+  //   return (
+  //     <Page>
+  //       <Title title="Cart" />
+  //       <EmptySection name="cart" />
+  //     </Page>
+  //   );
 
   return (
     <Page>
       <Title title="Cart" />
       <section className="cart">
-        <aside>{data.productsById.length != 0 && <FinishOrderCart />}</aside>
+        <aside>{cart && cart.data && cart.data.cart.products.length != 0 && <FinishOrderCart />}</aside>
         <div className="main">
-          {!data?.productsById.length && <EmptySection name="cart" />}
+          {cart && cart.data && cart.data.cart.length === 0  && <EmptySection name="cart" />}
           <ProductsGrid>
-            {data?.productsById.map((product) => (
+            {cart && cart.data  && cart.data.cart.products.length  && cart.data.cart.products.map((product) => (
               <ProductItem
                 key={product.id}
                 id={product.id}
-                name={product.name}
-                rating={product.rating}
-                img_url={product.img_url}
-                price={product.price}
+                name={product.data.name}
+                rating={product.data.rating}
+                img_url={product.data.image.url}
+                price={product.data.price}
+                product={product}
               />
             ))}
           </ProductsGrid>

@@ -1,31 +1,43 @@
-import { FaSearch } from 'react-icons/fa';
+import React,{useState, useEffect} from 'react';
+import {FaSearch} from 'react-icons/fa';
+import Link from 'next/link'
+import {useRouter} from "next/router";
 
-export default function SearchBox() {
+export default function SearchBox(props) {
+  const router = useRouter();
+  const [searchItem, setSearchItem] = useState(null);
+
+
+  function handleSearch(e) {
+    setSearchItem(e.target.value)
+  }
+  function handleSearchPassProps() {
+    if(searchItem)  {
+      let first= "/category/";
+      let result= first.concat(searchItem)
+      router.push(result);
+      // window.location.replace(result);
+    }
+
+  }
   return (
     <>
       <div className="search-box">
         <button className="search-button">
-          <FaSearch color="#D8D8D8" size="15px" />
+          <FaSearch color="gray" size="15px"/>
         </button>
         <input
+          value={searchItem}
           id="search"
           type="text"
           name="search"
-          placeholder="Search goods"
+          placeholder="Search products"
+          onChange={handleSearch}
         />
-        <select id="categories-search" name="categories-search">
-          <option value="" selected>
-            Category
-          </option>
-          <option value="#">Desktop</option>
-            <option value="#">Smartphone</option>
-            <option value="#">Watches</option>
-            <option value="#">Games</option>
-            <option value="#">Laptop</option>
-            <option value="#">Keyboards</option>
-            <option value="#">TV & Video</option>
-            <option value="#">Accessories</option>
-        </select>
+        <button className="search-button" onClick={handleSearchPassProps}>
+          <span style={{color:'gray',paddingRight:3}}>Search </span>
+        </button>
+
       </div>
       <style jsx>{`
         .search-box {
@@ -39,6 +51,7 @@ export default function SearchBox() {
           border: 2px solid #f5f5f5;
           box-sizing: border-box;
           border-radius: 4px;
+          width:30%;
         }
         .search-box .search-button {
           display: flex;
@@ -77,6 +90,18 @@ export default function SearchBox() {
         }
         .search-box select:focus {
           outline: none;
+        }
+        .search-button{
+          background-color:orange;
+         font-size:1.5rem;
+         font-weight: 900;
+        padding: 10px;
+        color: white;
+        font-size: 17px;
+        border: 1px solid grey;
+        border: none;
+        cursor: pointer;
+
         }
       `}</style>
     </>

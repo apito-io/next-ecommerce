@@ -17,47 +17,47 @@ export default function Fotter() {
       <div className="footer footer-top">
         <Logo />
 
-        <div className="footer-nav">
-          <Link href="/">
-            <a>Shop</a>
-          </Link>
-          <Link href="/">
-            <a>Journal</a>
-          </Link>
-          <Link href="/">
-            <a>About</a>
-          </Link>
-          <Link href="/">
-            <a>Contacts</a>
-          </Link>
-        </div>
+        {/*<div className="footer-nav">*/}
+          {/*<Link href="/">*/}
+            {/*<a>Shop</a>*/}
+          {/*</Link>*/}
+          {/*<Link href="/">*/}
+            {/*<a>Journal</a>*/}
+          {/*</Link>*/}
+          {/*<Link href="/">*/}
+            {/*<a>About</a>*/}
+          {/*</Link>*/}
+          {/*<Link href="/">*/}
+            {/*<a>Contacts</a>*/}
+          {/*</Link>*/}
+        {/*</div>*/}
 
         <div className="social-links">
-          <Link href="/">
-            <a>
-              <FaFacebookF color="#d8d8d8" size="18px" />
-            </a>
-          </Link>
-          <Link href="/">
-            <a>
-              <FaTwitter color="#d8d8d8" size="18px" />
-            </a>
-          </Link>
-          <Link href="/">
-            <a>
-              <FaInstagram color="#d8d8d8" size="18px" />
-            </a>
-          </Link>
-          <Link href="/">
-            <a>
-              <FaYoutube color="#d8d8d8" size="18px" />
-            </a>
-          </Link>
+          {/*<Link href="/">*/}
+            {/*<a>*/}
+              {/*<FaFacebookF color="#d8d8d8" size="18px" />*/}
+            {/*</a>*/}
+          {/*</Link>*/}
+          {/*<Link href="/">*/}
+            {/*<a>*/}
+              {/*<FaTwitter color="#d8d8d8" size="18px" />*/}
+            {/*</a>*/}
+          {/*</Link>*/}
+          {/*<Link href="/">*/}
+            {/*<a>*/}
+              {/*<FaInstagram color="#d8d8d8" size="18px" />*/}
+            {/*</a>*/}
+          {/*</Link>*/}
+          {/*<Link href="/">*/}
+            {/*<a>*/}
+              {/*<FaYoutube color="#d8d8d8" size="18px" />*/}
+            {/*</a>*/}
+          {/*</Link>*/}
         </div>
       </div>
       <div className="footer footer-bottom">
         <div className="texts">
-          <p>© 2016. Quantum UI kit</p>
+          <p>© 2021. Apito</p>
           <p>Privacy Policy</p>
           <p>Terms of Use</p>
         </div>

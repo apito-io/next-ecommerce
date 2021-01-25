@@ -18,8 +18,8 @@ export default function Products({ category }) {
     var { data, loading, error } = useQuery(PRODUCTS,{
       variables:{
         sort: {
-          price: sortQueryResult?.sortProductSection[0]==='price'? sortQueryResult?.sortProductSection[1] : undefined, 
-          rating: sortQueryResult?.sortProductSection[0]==='rating'? sortQueryResult?.sortProductSection[1] : undefined, 
+          price: sortQueryResult?.sortProductSection[0]==='price'? sortQueryResult?.sortProductSection[1] : undefined,
+          rating: sortQueryResult?.sortProductSection[0]==='rating'? sortQueryResult?.sortProductSection[1] : undefined,
         }
       }
     });
@@ -53,6 +53,7 @@ export default function Products({ category }) {
             rating={product.rating}
             img_url={product.img_url}
             price={product.price}
+            product={product}
           />
         ))}
       </ProductsGrid>
@@ -72,9 +73,10 @@ export default function Products({ category }) {
           rating={product?.data?.rating}
           img_url={product?.data?.image?.url}
           price={product?.data?.price}
+          product={product}
         />
-      )) : 
-      
+      )) :
+
       dataByCategory?.categories[0]?.products && Array.isArray(dataByCategory?.categories[0]?.products) ? dataByCategory?.categories[0]?.products.map((product) => (
         <ProductItem
           key={product.id}
@@ -83,6 +85,7 @@ export default function Products({ category }) {
           rating={product?.data?.rating}
           img_url={product?.data?.image?.url}
           price={product?.data?.price}
+          product={product}
         />
       ))
       : null}

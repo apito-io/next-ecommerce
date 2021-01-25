@@ -11,6 +11,7 @@ import Button from '../../components/form/button';
 import Input from '../../components/form/input';
 import InputContainer from '../../components/form/InputContainer';
 import FormContainer from '../../components/form/formContainer';
+import {loginSuccess} from "../../utils/authContainer";
 
 export default function SignUp() {
   const [signUp] = useMutation(SIGN_UP);
@@ -35,13 +36,16 @@ export default function SignUp() {
     try {
       const result = await signUp({
         variables: {
-          name: name.trim(),
           email: email.trim(),
-          password: password.trim(),
+          secret: password.trim(),
         },
       });
 
-      router.push('/user/login');
+      if(result){
+        router.push('/user/login');
+      }
+
+
     } catch (error) {
       setMsgError(getErrorMessage(error));
     }
@@ -55,13 +59,13 @@ export default function SignUp() {
 
           {msgError && <AlertError message={msgError} />}
           <InputContainer>
-            <Input
-              type="text"
-              name="name"
-              placeholder="Name"
-              onChange={(value) => setName(value)}
-              value={name}
-            />
+            {/*<Input*/}
+              {/*type="text"*/}
+              {/*name="name"*/}
+              {/*placeholder="Name"*/}
+              {/*onChange={(value) => setName(value)}*/}
+              {/*value={name}*/}
+            {/*/>*/}
             <Input
               type="email"
               name="email"

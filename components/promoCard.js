@@ -2,7 +2,7 @@ export default function PromoCard() {
   return (
     <div className="promo-card">
       <p className="title">Look Up In The Sky</p>
-      <p className="description">Astronomy Or Astrology</p>
+      <p className="description">Sky is the limit</p>
 
       <style jsx>{`
         .promo-card {

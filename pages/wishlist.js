@@ -43,6 +43,7 @@ export default function Wishlist() {
                 rating={product.rating}
                 img_url={product.img_url}
                 price={product.price}
+                product={product}
               />
             ))}
           </ProductsGrid>
