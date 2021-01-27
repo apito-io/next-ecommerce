@@ -1,10 +1,10 @@
 import AsideCategories from './asideCategories';
 import PromoCard from './promoCard';
 import HeaderBarProducts from './headerBarProducts';
-import Products from './products';
 import React from "react";
+import ProductsSearch from "./productsSearch";
 
-export default function ProductSection({ category }) {
+export default function ProductSectionSearch({ product }) {
   return (
     <section id="product">
       <aside>
@@ -13,8 +13,8 @@ export default function ProductSection({ category }) {
       </aside>
       <div className="main">
         <HeaderBarProducts />
-         <Products
-           category={category}
+         <ProductsSearch
+           product={product}
          />
       </div>
 

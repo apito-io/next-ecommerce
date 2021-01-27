@@ -4,7 +4,7 @@ export default function Logo() {
   return (
     <>
       <Link href="/">
-        <a className="logo">APITO Example</a>
+        <a className="logo">Quantum ECommerce</a>
       </Link>
       <style jsx>{`
         .logo {

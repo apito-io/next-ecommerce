@@ -1,7 +1,7 @@
 import {useQuery} from '@apollo/client';
 import Link from 'next/link';
 import {FaRegHeart, FaShoppingCart, FaSignOutAlt, FaUser,} from 'react-icons/fa';
-import {CART_COUNT} from '../../apollo/client/queries';
+import {CART_COUNT, WISHLIST} from '../../apollo/client/queries';
 
 import Logo from '../logo';
 import SearchBox from '../search-box';
@@ -9,6 +9,7 @@ import {isLogin} from "../../utils/authContainer";
 
 export default function HeaderDesktop({ viewer }) {
   const cart = useQuery(CART_COUNT);
+  const wishlist = useQuery(WISHLIST);
 
   return (
     <>
@@ -30,7 +31,9 @@ export default function HeaderDesktop({ viewer }) {
           <Link href="/wishlist">
             <a className="nav-buttons-wishlist">
               <FaRegHeart color="#808080" />
-              <p>Wishlist</p>
+              <p>
+                <sup className="items-total">{wishlist?.data?.wishlist?.wishlistCount || 0}</sup>{' '}
+                Wishlist</p>
             </a>
           </Link>
           {isLogin()===false && (

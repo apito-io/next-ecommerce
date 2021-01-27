@@ -19,7 +19,7 @@ export default function ProductSection({ id, name, rating, img_url, price,produc
   return (
     <article>
       <div className="top-buttons">
-        <button className="add-wishlist" onClick={() => toggleWishlist(id)}>
+        <button className="add-wishlist" onClick={() => toggleWishlist(product)}>
           {wishlist?.data?.wishlist?.products.includes(id) && (
             <FaHeart size={20} color="#D8D8D8" />
           )}
@@ -52,7 +52,7 @@ export default function ProductSection({ id, name, rating, img_url, price,produc
 
       <div className="price">
         <p className="price-value">${price}</p>
-        <button className="add-cart" onClick={() => toggleCart(id,product)}>
+        <button className="add-cart" onClick={() => toggleCart(product)}>
           {cart?.data?.cart?.products.includes(id) && (
             <FaCartArrowDown size={18} color="#D8D8D8" />
           )}

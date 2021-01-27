@@ -14,7 +14,8 @@ export default function Products({ category }) {
         category: category,
       },
     });
-  } else if (!category) {
+  }
+  else if (!category) {
     var { data, loading, error } = useQuery(PRODUCTS,{
       variables:{
         sort: {
@@ -40,8 +41,8 @@ export default function Products({ category }) {
       </>
     );
 
-  // Offline data
-
+  // // Offline data
+  //
   if ((!data?.products && !dataByCategory?.categories[0]?.products) || error)
     return (
       <ProductsGrid>

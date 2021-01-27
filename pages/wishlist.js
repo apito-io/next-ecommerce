@@ -1,30 +1,14 @@
-import { useQuery } from '@apollo/client';
+import {useQuery} from '@apollo/client';
 import Page from '../components/page';
 import EmptySection from '../components/emptySection';
 import Title from '../components/title';
 import AsideCategories from '../components/asideCategories';
-import { WISHLIST, PRODUCTS_BY_IDS } from '../apollo/client/queries';
+import {WISHLIST} from '../apollo/client/queries';
 import ProductsGrid from '../components/productsGrid';
 import ProductItem from '../components/productItem';
 
 export default function Wishlist() {
   const wishlist = useQuery(WISHLIST);
-
-  const { data, loading, error } = useQuery(PRODUCTS_BY_IDS, {
-    variables: {
-      id: wishlist.data.wishlist.products,
-    },
-  });
-
-  if (loading) return <></>;
-
-  if (error || !data?.productsById.length)
-    return (
-      <Page>
-        <Title title="Wishlist" />
-        <EmptySection name="wishlist" />
-      </Page>
-    );
 
   return (
     <Page>
@@ -34,15 +18,16 @@ export default function Wishlist() {
           <AsideCategories />
         </aside>
         <div className="main">
+          {wishlist && wishlist.data && wishlist.data.wishlist.products && wishlist.data.wishlist.products.length === 0  && <EmptySection name="cart" />}
           <ProductsGrid>
-            {data?.productsById.map((product) => (
+            {wishlist && wishlist.data && wishlist.data.wishlist && wishlist.data.wishlist.products.map((product) => (
               <ProductItem
                 key={product.id}
                 id={product.id}
-                name={product.name}
-                rating={product.rating}
-                img_url={product.img_url}
-                price={product.price}
+                name={product.data.name}
+                rating={product.data.rating}
+                img_url={product.data.image.url}
+                price={product.data.price}
                 product={product}
               />
             ))}

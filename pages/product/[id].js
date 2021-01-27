@@ -46,7 +46,7 @@ export default function Home() {
         <div className="top-buttons">
           <button
             className="add-wishlist"
-            onClick={() => toggleWishlist(data?.product.id)}
+            onClick={() => toggleWishlist(data && data.product)}
           >
             {wishlist?.data?.wishlist?.products.includes(
               data.product.id
@@ -84,7 +84,7 @@ export default function Home() {
           <p className="price-value">${data?.product?.data?.price}</p>
           <button
             className="add-cart"
-            onClick={() => toggleCart(data?.product?.id)}
+            onClick={() => toggleCart(data && data.product && data.product.id ?  data.product : null)}
           >
             {cart?.data?.cart?.products.includes(data?.product?.id) && (
               <FaCartArrowDown size={24} color="#D8D8D8" />

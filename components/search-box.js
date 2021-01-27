@@ -13,7 +13,7 @@ export default function SearchBox(props) {
   }
   function handleSearchPassProps() {
     if(searchItem)  {
-      let first= "/category/";
+      let first= "/products/";
       let result= first.concat(searchItem)
       router.push(result);
       // window.location.replace(result);

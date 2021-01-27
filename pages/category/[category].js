@@ -1,4 +1,4 @@
-import { useRouter } from 'next/router';
+import {useRouter} from 'next/router';
 
 import Page from '../../components/page';
 import ProductSection from '../../components/productSection';

@@ -136,6 +136,25 @@ export const PRODUCTS_BY_ID = gql`
     }
   }
 `;
+export const PRODUCTS_SEARCH = gql`
+query Products($name:String) {
+  products(where: {name: {contains: $name}}) {
+    data {
+      description {
+        text
+      }
+      image {
+        url
+      }
+      name
+      price
+      rating
+    }
+    id
+  }
+}
+`
+
 export const PRODUCTS_BY_IDS = gql`
   query productsByIds($id: [ID]!) {
     productsById(id: $id) {
